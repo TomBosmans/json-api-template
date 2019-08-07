@@ -8,7 +8,7 @@ end
 def setup_rspec
   return unless rspec?
 
-  add_development_gem "gem 'rspec-rails'"
+  add_test_gem "gem 'rspec-rails'"
   run 'bundle install'
   run 'bundle exec rails generate rspec:install'
   remove_dir 'test'
