@@ -19,4 +19,5 @@ end
 
 require_relative 'commits/rspec'
 require_relative 'commits/factory_bot'
+require_relative 'commits/redis'
 require_relative 'commits/rubocop'
