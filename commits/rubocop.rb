@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RUBOCOP_FILE = <<-CODE
-require: rubocop-rspec
-
 AllCops:
   Exclude:
     - 'db/schema.rb'
@@ -37,18 +35,16 @@ RSpec/NestedGroups:
   Max: 4
 CODE
 
-RUBOCOP_GEMS = <<-CODE
-
-  gem 'rubocop', require: false
-  gem 'rubocop-rspec', require: false
-CODE
+def rubocop?
+  @rubocop ||= yes?('setup rubocop?') || :nope
+  @rubocop == true
+end
 
 def autofix_rubocop
   return unless yes?('autofix rubocop warnings?')
 
   run 'bundle exec rubocop -a'
-  run 'git add .'
-  run 'git commit -m "rubocop autofix"'
+  commit 'Run rubocop autofix.'
 end
 
 def generate_rubocop_todo
@@ -56,18 +52,17 @@ def generate_rubocop_todo
 
   run 'rubocop --auto-gen-config'
   append_to_file '.rubocop.yml', 'inherit_from: .rubocop_todo.yml'
-  run 'git add .'
-  run 'git commit -m "generate rubocop_todo"'
+  commit 'Generate rubocop todo file.'
 end
 
 def setup_rubocop
-  insert_into_file "Gemfile", RUBOCOP_GEMS, after: 'group :development do'
-  file '.rubocop.yml', RUBOCOP_FILE
-  run 'git add .'
-  run 'git commit -m "add rubocop"'
+  return unless rubocop?
 
-  after_bundle do
-    autofix_rubocop
-    generate_rubocop_todo
-  end
+  add_development_gem "gem 'rubocop', require: false"
+  add_development_gem "gem 'rubocop-rspec', require: false" if rspec?
+  file '.rubocop.yml', RUBOCOP_FILE
+  prepend_to_file '.rubocop.yml', "require: rubocop-rspec\n\n" if rspec?
+  commit 'Setup rubocop.'
+  autofix_rubocop
+  generate_rubocop_todo
 end

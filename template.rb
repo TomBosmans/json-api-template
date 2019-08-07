@@ -2,7 +2,8 @@
 
 require_relative 'commits'
 
-run 'git add .'
-run 'git commit -m "this is not the commit you are looking for."'
+run 'bundle install'
+commit 'this is not the commit you are looking for.'
 
-setup_rubocop if yes?('do you want rubocop?')
+setup_rspec
+setup_rubocop
