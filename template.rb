@@ -3,7 +3,8 @@
 require_relative 'commits'
 
 run 'bundle install'
-commit 'this is not the commit you are looking for.'
+commit 'This is not the commit you are looking for.'
 
 setup_rspec
+setup_factory_bot
 setup_rubocop

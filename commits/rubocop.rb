@@ -58,10 +58,15 @@ end
 def setup_rubocop
   return unless rubocop?
 
-  add_development_gem "gem 'rubocop', require: false"
-  add_development_gem "gem 'rubocop-rspec', require: false" if rspec?
   file '.rubocop.yml', RUBOCOP_FILE
-  prepend_to_file '.rubocop.yml', "require: rubocop-rspec\n\n" if rspec?
+  add_development_gem "gem 'rubocop', require: false"
+
+  if rspec?
+    add_development_gem "gem 'rubocop-rspec', require: false"
+    prepend_to_file '.rubocop.yml', "require: rubocop-rspec\n\n"
+  end
+
+  run 'bundle install'
   commit 'Setup rubocop.'
   autofix_rubocop
   generate_rubocop_todo
