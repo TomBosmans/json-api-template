@@ -14,4 +14,5 @@ setup_redis
 setup_simplecov
 setup_annotate
 setup_erd
+setup_pry
 setup_rubocop
