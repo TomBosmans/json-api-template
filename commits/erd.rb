@@ -7,7 +7,7 @@ end
 def setup_erd
   return unless erd?
 
-  run 'brew install graphviz'
+  run 'brew install graphviz' if yes?('brew install graphiz?')
   add_development_gem "gem 'rails-erd'"
   run 'bundle install'
   commit 'Add rails erd.'
