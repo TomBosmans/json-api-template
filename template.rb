@@ -12,4 +12,5 @@ setup_factory_bot
 setup_shoulda_matchers
 setup_redis
 setup_simplecov
+setup_annotate
 setup_rubocop

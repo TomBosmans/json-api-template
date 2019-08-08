@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 RUBOCOP_FILE = <<-CODE
+require:
+  - rubocop-rails
+
 AllCops:
   Exclude:
     - 'db/schema.rb'
@@ -25,6 +28,7 @@ Style/MixinUsage:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
+    - 'lib/tasks/**/*.rake'
 
 Metrics/LineLength:
   Max: 120 # aim for 80, but allow some extra length.
@@ -58,11 +62,11 @@ def setup_rubocop
   return unless rubocop?
 
   file '.rubocop.yml', RUBOCOP_FILE
-  add_development_gem "gem 'rubocop', require: false"
+  add_development_gem "gem 'rubocop-rails', require: false"
 
   if rspec?
     add_development_gem "gem 'rubocop-rspec', require: false"
-    prepend_to_file '.rubocop.yml', "require: rubocop-rspec\n\n"
+    insert_into_file '.rubocop.yml', "\n- rubocop-rspec\n", before: '- rubocop-rails'
   end
 
   run 'bundle install'
