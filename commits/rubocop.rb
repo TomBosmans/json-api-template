@@ -36,8 +36,7 @@ RSpec/NestedGroups:
 CODE
 
 def rubocop?
-  @rubocop ||= yes?('setup rubocop?') || :nope
-  @rubocop == true
+  true
 end
 
 def autofix_rubocop

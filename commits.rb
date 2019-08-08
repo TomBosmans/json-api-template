@@ -21,8 +21,13 @@ def add_development_test_gem(code)
   add_gem code, after: 'group :development, :test do'
 end
 
+def gitignore(line)
+  run "echo '#{line}' >> .gitignore"
+end
+
 require_relative 'commits/rspec'
 require_relative 'commits/factory_bot'
 require_relative 'commits/shoulda_matchers'
 require_relative 'commits/redis'
+require_relative 'commits/simplecov'
 require_relative 'commits/rubocop'

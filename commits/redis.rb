@@ -31,8 +31,8 @@ def setup_redis
   return unless redis?
 
   file 'config/initializers/redis.rb', REDIS_CONFIG
-  file 'spec/support/redis.rb', REDIS_SUPPORT
-
+  file 'spec/support/redis_support.rb', REDIS_SUPPORT if rspec?
   uncomment_lines 'Gemfile', /redis/
   run 'bundle install'
+  commit 'Setup redis.'
 end

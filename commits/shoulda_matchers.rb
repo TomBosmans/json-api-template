@@ -12,7 +12,10 @@ end
 CODE
 
 def setup_shoulda_matchers
-  file 'spec/support/shoulda_matchers.rb', SHOULDA_FILE
+  return unless rspec?
+
+  file 'spec/support/shoulda_matchers_support.rb', SHOULDA_FILE
   add_test_gem "gem 'shoulda-matchers'"
   run 'bundle install'
+  commit 'Add shoulda matchers'
 end

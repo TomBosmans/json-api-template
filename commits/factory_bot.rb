@@ -19,6 +19,6 @@ def setup_factory_bot
   add_development_test_gem "gem 'faker'"
   run 'bundle install'
 
-  file 'spec/support/factory_bot.rb', FACTORY_BOT_FILE
+  file 'spec/support/factory_bot_support.rb', FACTORY_BOT_FILE if rspec?
   commit 'Add factory bot with faker'
 end
