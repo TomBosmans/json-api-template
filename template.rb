@@ -13,4 +13,5 @@ setup_shoulda_matchers
 setup_redis
 setup_simplecov
 setup_annotate
+setup_erd
 setup_rubocop
